@@ -1,0 +1,54 @@
+#! /bin/bash
+
+SEARCH_PATH=$1
+[ -z "$SEARCH_PATH" ] && SEARCH_PATH="."
+cd $SEARCH_PATH
+
+DEFAULT_BRANCH=$2
+[ -z "$DEFAULT_BRANCH" ] && DEFAULT_BRANCH="master"
+
+find_directories_with_git_repos() {
+    REL_PATH="$(find . -type d | grep .git$)"
+    CWD="$(pwd)"
+
+    for single_path in ${REL_PATH[@]};
+    do
+        WITHOUT_GIT="${single_path::-5}"
+        ABS_PATH="${CWD}/${WITHOUT_GIT:2}"
+        GIT_DIRS+=($ABS_PATH)
+    done
+}
+
+save_branch_go_to_master () {
+    BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+    if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
+        HUMAN_READABLE_DIR="$(echo $CWD | rev | cut -d'/' -f1 | rev)"
+        echo "Switching to master on $HUMAN_READABLE_DIR"
+
+        NON_MASTER_GIT_BRANCH=$BRANCH
+        git stash push
+        git checkout $DEFAULT_BRANCH
+    fi
+}
+
+switch_back_branch () {
+    if [ "$NON_MASTER_GIT_BRANCH" != "" ]; then
+        git checkout $NON_MASTER_GIT_BRANCH
+        git stash pop
+    fi
+}
+
+declare -a GIT_DIRS=()
+
+find_directories_with_git_repos
+for CWD in ${GIT_DIRS[@]};
+do
+    cd $CWD
+    NON_MASTER_GIT_BRANCH=""
+
+    save_branch_go_to_master
+    git pull --prune
+    switch_back_branch
+    echo
+done
+echo "Done"
