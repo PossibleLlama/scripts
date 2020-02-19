@@ -1,0 +1,42 @@
+#! /bin/bash
+
+line_break() {
+    echo "" >> $ALIASES_FILE
+}
+
+create_function() {
+    FUNCTION_NAME=$1
+    ADDITIONAL_EXEC=$2
+
+    echo "${FUNCTION_NAME} () {" >> $ALIASES_FILE
+    echo "    echo \"TODO\"" >> $ALIASES_FILE
+
+    if [ ! -z "$ADDITIONAL_EXEC" ]; then
+        echo "    ${ADDITIONAL_EXEC}" >> $ALIASES_FILE
+    fi
+
+    echo "}" >> $ALIASES_FILE
+    line_break
+}
+
+ALIASES_FILE=".bash_aliases"
+cd ~
+
+if [ ! -f $ALIASES_FILE ]; then
+    touch $ALIASES_FILE
+    echo "Creating ${ALIASES_FILE} file"
+fi
+
+echo "alias ls=\"ls -l\"" >> $ALIASES_FILE
+line_break
+
+echo "alias gita=\"git add\"" >> $ALIASES_FILE
+echo "alias gitc=\"git commit -m \"" >> $ALIASES_FILE
+echo "alias gitpl=\"git pull --prune\"" >> $ALIASES_FILE
+echo "alias gitps=\"git push\"" >> $ALIASES_FILE
+line_break
+
+create_function "morning"
+create_function "night" "shutdown"
+
+source $ALIASES_FILE
