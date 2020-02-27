@@ -34,6 +34,8 @@ echo "alias gita=\"git add\"" >> $ALIASES_FILE
 echo "alias gitc=\"git commit -m \"" >> $ALIASES_FILE
 echo "alias gitpl=\"git pull --prune\"" >> $ALIASES_FILE
 echo "alias gitps=\"git push\"" >> $ALIASES_FILE
+echo "alias gits=\"git status\"" >> $ALIASES_FILE
+echo "alias gitl=\"git log\"" >> $ALIASES_FILE
 line_break
 
 create_function "morning"
