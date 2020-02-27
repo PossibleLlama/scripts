@@ -1,3 +1,8 @@
 #! /bin/bash
 
-docker images | awk '{print $2}' | grep -v TAG
+DOCKER_IDS_NOT_LATEST=$(docker images | grep -v TAG | grep -v latest | awk '{print $3}')
+
+for DOCKER_ID in ${DOCKER_IDS_NOT_LATEST[@]};
+do
+    docker rmi $DOCKER_ID
+done
