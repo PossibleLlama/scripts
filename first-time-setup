@@ -42,7 +42,7 @@ echo "alias gitl=\"git log --oneline\"" >> $ALIASES_FILE
 line_break
 
 create_function "morning"
-create_function "night" "shutdown"
+create_function "night" "shutdown now"
 
 source $ALIASES_FILE
 
