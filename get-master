@@ -1,11 +1,7 @@
 #! /bin/bash
 
-SEARCH_PATH=$1
-[ -z "$SEARCH_PATH" ] && SEARCH_PATH="."
-cd $SEARCH_PATH
-
-DEFAULT_BRANCH=$2
-[ -z "$DEFAULT_BRANCH" ] && DEFAULT_BRANCH="master"
+SEARCH_PATH="${1:-.}"
+DEFAULT_BRANCH="${2:-master}"
 
 find_directories_with_git_repos() {
     REL_PATH="$(find . -type d | grep .git$)"
@@ -40,6 +36,7 @@ switch_back_branch () {
 
 declare -a GIT_DIRS=()
 
+cd $SEARCH_PATH
 find_directories_with_git_repos
 for CWD in ${GIT_DIRS[@]};
 do
