@@ -1,7 +1,13 @@
 #! /bin/bash
 
-SEARCH_PATH="${1:-.}"
-DEFAULT_BRANCH="${2:-master}"
+SEARCH_PATH="."
+DEFAULT_BRANCH="master"
+STAY_ON_DEFAULT=0
+VERBOSE=0
+
+usage() {
+    echo "WIP"
+}
 
 find_directories_with_git_repos() {
     REL_PATH="$(find . -type d | grep .git$)"
@@ -35,6 +41,26 @@ switch_back_branch () {
 }
 
 declare -a GIT_DIRS=()
+
+while [ "$1" != "" ];
+do
+    case $1 in
+        -p | --path )       shift
+                            SEARCH_PATH=$1
+                            ;;
+        -b | --branch )     shift
+                            DEFAULT_BRANCH=$1
+                            ;;
+        -m | --master )     STAY_ON_DEFAULT=1
+                            ;;
+        -v | --verbose )    VERBOSE=1
+                            ;;
+        -h | --help )       usage
+                            exit 0
+                            ;;
+    esac
+    shift
+done
 
 cd $SEARCH_PATH
 find_directories_with_git_repos
