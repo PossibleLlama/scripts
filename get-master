@@ -6,7 +6,10 @@ STAY_ON_DEFAULT=0
 VERBOSE=0
 
 usage() {
-    echo "WIP"
+    echo "-p --path : Add root path to search for git repos and pull from."
+    echo "-b --branch : Branch name to checkout and get latest for."
+    echo "-m --master : Checkout branch, or default branch and pull."
+    echo "-v --verbose : Output commands and what the script is doing."
 }
 
 print() {
