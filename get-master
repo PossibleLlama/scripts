@@ -9,34 +9,47 @@ usage() {
     echo "WIP"
 }
 
+print() {
+    if [ "$VERBOSE" = 1 ]; then
+        echo "$1"
+    fi
+}
+
+print-output() {
+    if [ "$VERBOSE" = 1 ]; then
+        echo $($1)
+    else
+        $($1) >/dev/null 2>&1
+    fi
+}
+
 find_directories_with_git_repos() {
     REL_PATH="$(find . -type d | grep .git$)"
-    CWD="$(pwd)"
 
     for single_path in ${REL_PATH[@]};
     do
         WITHOUT_GIT="${single_path::-5}"
-        ABS_PATH="${CWD}/${WITHOUT_GIT:2}"
+        ABS_PATH="$(pwd)/${WITHOUT_GIT:2}"
         GIT_DIRS+=($ABS_PATH)
     done
 }
 
 save_branch_go_to_master () {
     BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-    HUMAN_READABLE_DIR="$(echo $CWD | rev | cut -d'/' -f1 | rev)"
+    HUMAN_READABLE_DIR="$(pwd | rev | cut -d'/' -f1 | rev)"
 
-    echo "$HUMAN_READABLE_DIR: $BRANCH"
+    print "$HUMAN_READABLE_DIR: $BRANCH"
     if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
         NON_MASTER_GIT_BRANCH=$BRANCH
-        git stash push
-        git checkout $DEFAULT_BRANCH
+        print-output "git stash push"
+        print-output "git checkout $DEFAULT_BRANCH"
     fi
 }
 
 switch_back_branch () {
-    if [ "$NON_MASTER_GIT_BRANCH" != "" ]; then
-        git checkout $NON_MASTER_GIT_BRANCH
-        git stash pop
+    if [ "$NON_MASTER_GIT_BRANCH" != "" ] && [ "$STAY_ON_DEFAULT" = 0 ]; then
+        print-output "git checkout $NON_MASTER_GIT_BRANCH"
+        print-output "git stash pop"
     fi
 }
 
@@ -70,7 +83,7 @@ do
     NON_MASTER_GIT_BRANCH=""
 
     save_branch_go_to_master
-    git pull --prune
+    print-output "git pull --prune"
     switch_back_branch
     echo
 done
