@@ -17,10 +17,10 @@ find_directories_with_git_repos() {
 
 save_branch_go_to_master () {
     BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-    if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
-        HUMAN_READABLE_DIR="$(echo $CWD | rev | cut -d'/' -f1 | rev)"
-        echo "Switching to master on $HUMAN_READABLE_DIR"
+    HUMAN_READABLE_DIR="$(echo $CWD | rev | cut -d'/' -f1 | rev)"
 
+    echo "$HUMAN_READABLE_DIR: $BRANCH"
+    if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
         NON_MASTER_GIT_BRANCH=$BRANCH
         git stash push
         git checkout $DEFAULT_BRANCH
