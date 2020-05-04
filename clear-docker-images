@@ -6,9 +6,9 @@ TAG=$1
 # If a tag is passed, assumed that the user wants to delete all images with that tag.
 # otherwise, remove all tags that are not latest
 if [ ! -z "$TAG" ]; then
-    DOCKER_IDS=$(docker images | grep -v TAG | grep $TAG | awk '{print $3}')
+    DOCKER_IDS=$(docker images -a | grep -v TAG | grep $TAG | awk '{print $3}')
 else
-    DOCKER_IDS=$(docker images | grep -v TAG | grep -v latest | awk '{print $3}')
+    DOCKER_IDS=$(docker images -a | grep -v TAG | grep -v latest | awk '{print $3}')
 fi
 
 for DOCKER_ID in ${DOCKER_IDS[@]};
