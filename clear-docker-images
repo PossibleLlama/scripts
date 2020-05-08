@@ -1,9 +1,25 @@
 #! /bin/bash
 
 declare -a DOCKER_IDS=()
-TAG=$1
 
-# If a tag is passed, assumed that the user wants to delete all images with that tag.
+usage() {
+    echo "-t --tag : Image's tag to remove."
+}
+
+while [ "$1" != "" ];
+do
+    case $1 in
+        -t | --tag )    shift
+                        TAG=$1
+                        ;;
+        -h | --help )   usage
+                        exit 0
+                        ;;
+    esac
+    shift
+done
+
+# If a tag is passed, delete all images with that tag.
 # otherwise, remove all tags that are not latest
 if [ ! -z "$TAG" ]; then
     DOCKER_IDS=$(docker images -a | grep -v TAG | grep $TAG | awk '{print $3}')

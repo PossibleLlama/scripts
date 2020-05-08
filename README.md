@@ -29,8 +29,8 @@ Remove all docker images with specific tags, or if not specified, any that don't
 
 ``` bash
 bash clear-docker-images
-bash clear-docker-images $TAG
-bash clear-docker-images "<none>"
+bash clear-docker-images -t $TAG
+bash clear-docker-images -t "<none>"
 ```
 
 ## first-time-setup
