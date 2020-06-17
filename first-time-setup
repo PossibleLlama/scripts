@@ -34,6 +34,7 @@ echo "alias ls=\"ls -l\"" >> $ALIASES_FILE
 line_break
 
 echo "alias gita=\"git add\"" >> $ALIASES_FILE
+echo "alias gitaa=\"git add --all" >> $ALIASES_FILE
 echo "alias gitc=\"git commit -m \"" >> $ALIASES_FILE
 echo "alias gitpl=\"git pull --prune\"" >> $ALIASES_FILE
 echo "alias gitps=\"git push\"" >> $ALIASES_FILE
