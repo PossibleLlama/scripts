@@ -4,31 +4,39 @@ USERNAME=$1
 EMAIL=$2
 
 ALIASES_FILE="$HOME/.bash_aliases" # Store aliases and useful functions
+SECRETS_FILE="$HOME/.bash_secrets" # Store API keys and environment variables
+
 line_break() {
     FILE_NAME=$1
     echo "" >> $FILE_NAME
+}
+
+write_to_file() {
+    FILE_NAME=$1
+    CONTENTS=$2
+    echo "${CONTENTS}" >> $FILE_NAME
 }
 
 create_function() {
     FUNCTION_NAME=$1
     ADDITIONAL_EXEC=$2
 
-    echo "${FUNCTION_NAME} () {" >> $ALIASES_FILE
-    echo "    echo \"TODO\"" >> $ALIASES_FILE
+    write_to_file $ALIASES_FILE "${FUNCTION_NAME} () {"
+    write_to_file $ALIASES_FILE "    echo \"TODO\""
 
     if [ ! -z "$ADDITIONAL_EXEC" ]; then
-        echo "    ${ADDITIONAL_EXEC}" >> $ALIASES_FILE
+        write_to_file $ALIASES_FILE "    ${ADDITIONAL_EXEC}"
     fi
 
-    echo "}" >> $ALIASES_FILE
-    line_break
+    write_to_file $ALIASES_FILE "}"
+    line_break $ALIASES_FILE
 }
 
 add_alias() {
     ALIAS_NAME=$1
     ALIAS_FUNCTION=$2
 
-    echo "alias ${ALIAS_NAME}=\"${ALIAS_FUNCTION}\"" >> $ALIASES_FILE
+    write_to_file $ALIASES_FILE "alias ${ALIAS_NAME}=\"${ALIAS_FUNCTION}\""
 }
 
 create_file_if_none_exist() {
@@ -40,6 +48,7 @@ create_file_if_none_exist() {
 }
 
 create_file_if_none_exist $ALIASES_FILE
+create_file_if_none_exist $SECRETS_FILE
 
 add_alias "ls" "ls -l"
 line_break $ALIASES_FILE
@@ -54,6 +63,8 @@ add_alias "gitl"    "git log --oneline"
 line_break $ALIASES_FILE
 
 add_alias "python"  "python3"
+
+write_to_file $ALIASES_FILE "source ${SECRETS_FILE}"
 
 create_function "morning"
 create_function "night" "shutdown now"
