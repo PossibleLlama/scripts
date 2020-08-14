@@ -49,6 +49,8 @@ add_alias "gits"    "git status"
 add_alias "gitl"    "git log --oneline"
 line_break
 
+add_alias "python"  "python3"
+
 create_function "morning"
 create_function "night" "shutdown now"
 
