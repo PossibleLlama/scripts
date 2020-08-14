@@ -3,8 +3,10 @@
 USERNAME=$1
 EMAIL=$2
 
+ALIASES_FILE="$HOME/.bash_aliases" # Store aliases and useful functions
 line_break() {
-    echo "" >> $ALIASES_FILE
+    FILE_NAME=$1
+    echo "" >> $FILE_NAME
 }
 
 create_function() {
@@ -29,16 +31,18 @@ add_alias() {
     echo "alias ${ALIAS_NAME}=\"${ALIAS_FUNCTION}\"" >> $ALIASES_FILE
 }
 
-ALIASES_FILE=".bash_aliases"
-cd ~
+create_file_if_none_exist() {
+    FILE_NAME=$1
+    if [ ! -f $FILE_NAME ]; then
+        touch $FILE_NAME
+        echo "Creating ${FILE_NAME}"
+    fi
+}
 
-if [ ! -f $ALIASES_FILE ]; then
-    touch $ALIASES_FILE
-    echo "Creating ${ALIASES_FILE} file"
-fi
+create_file_if_none_exist $ALIASES_FILE
 
 add_alias "ls" "ls -l"
-line_break
+line_break $ALIASES_FILE
 
 add_alias "gita"    "git add"
 add_alias "gitaa"   "git add --all"
@@ -47,7 +51,7 @@ add_alias "gitpl"   "git pull --prune"
 add_alias "gitps"   "git push"
 add_alias "gits"    "git status"
 add_alias "gitl"    "git log --oneline"
-line_break
+line_break $ALIASES_FILE
 
 add_alias "python"  "python3"
 
