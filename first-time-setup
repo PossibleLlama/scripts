@@ -22,6 +22,13 @@ create_function() {
     line_break
 }
 
+add_alias() {
+    ALIAS_NAME=$1
+    ALIAS_FUNCTION=$2
+
+    echo "alias ${ALIAS_NAME}=\"${ALIAS_FUNCTION}\"" >> $ALIASES_FILE
+}
+
 ALIASES_FILE=".bash_aliases"
 cd ~
 
@@ -30,16 +37,16 @@ if [ ! -f $ALIASES_FILE ]; then
     echo "Creating ${ALIASES_FILE} file"
 fi
 
-echo "alias ls=\"ls -l\"" >> $ALIASES_FILE
+add_alias "ls" "ls -l"
 line_break
 
-echo "alias gita=\"git add\"" >> $ALIASES_FILE
-echo "alias gitaa=\"git add --all" >> $ALIASES_FILE
-echo "alias gitc=\"git commit -m \"" >> $ALIASES_FILE
-echo "alias gitpl=\"git pull --prune\"" >> $ALIASES_FILE
-echo "alias gitps=\"git push\"" >> $ALIASES_FILE
-echo "alias gits=\"git status\"" >> $ALIASES_FILE
-echo "alias gitl=\"git log --oneline\"" >> $ALIASES_FILE
+add_alias "gita"    "git add"
+add_alias "gitaa"   "git add --all"
+add_alias "gitc"    "git commit -m "
+add_alias "gitpl"   "git pull --prune"
+add_alias "gitps"   "git push"
+add_alias "gits"    "git status"
+add_alias "gitl"    "git log --oneline"
 line_break
 
 create_function "morning"
