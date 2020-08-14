@@ -50,6 +50,9 @@ create_file_if_none_exist() {
 create_file_if_none_exist $ALIASES_FILE
 create_file_if_none_exist $SECRETS_FILE
 
+write_to_file $ALIASES_FILE "export PATH=\"\$PATH:$(pwd)\""
+line_break $ALIASES_FILE
+
 add_alias "ls" "ls -l"
 line_break $ALIASES_FILE
 
