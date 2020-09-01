@@ -38,7 +38,7 @@ find_directories_with_git_repos() {
 save_branch_go_to_master () {
     BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
     HUMAN_READABLE_DIR="$(pwd | rev | cut -d'/' -f1 | rev)"
-    DEFAULT_BRANCH="(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
+    DEFAULT_BRANCH="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
 
     print "$HUMAN_READABLE_DIR: $BRANCH"
     if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
