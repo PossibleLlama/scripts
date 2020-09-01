@@ -1,13 +1,11 @@
 #! /bin/bash
 
 SEARCH_PATH="."
-DEFAULT_BRANCH="master"
 STAY_ON_DEFAULT=0
 VERBOSE=0
 
 usage() {
     echo "-p --path : Add root path to search for git repos and pull from."
-    echo "-b --branch : Branch name to checkout and get latest for."
     echo "-m --master : Checkout branch, or default branch and pull."
     echo "-v --verbose : Output commands and what the script is doing."
 }
@@ -40,6 +38,7 @@ find_directories_with_git_repos() {
 save_branch_go_to_master () {
     BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
     HUMAN_READABLE_DIR="$(pwd | rev | cut -d'/' -f1 | rev)"
+    DEFAULT_BRANCH="(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
 
     print "$HUMAN_READABLE_DIR: $BRANCH"
     if [ "$BRANCH" != "$DEFAULT_BRANCH" ]; then
@@ -63,9 +62,6 @@ do
     case $1 in
         -p | --path )       shift
                             SEARCH_PATH=$1
-                            ;;
-        -b | --branch )     shift
-                            DEFAULT_BRANCH=$1
                             ;;
         -m | --master )     STAY_ON_DEFAULT=1
                             ;;
