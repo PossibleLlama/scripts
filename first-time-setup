@@ -50,7 +50,9 @@ create_file_if_none_exist() {
 # ------------------------------
 # Installations
 
+apt-get install curl
 apt-get install gnupg
+apt-get install gnupg-agent
 apt-get install xclip
 apt-get install npm
 apt-get install build-essential
@@ -140,6 +142,30 @@ cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
 xdg-open https://github.com/settings/ssh/new
 
 echo "" | xclip -sel clip
+
+# ------------------------------
+# Docker
+echo "Configuring Docker"
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+apt-get install apt-transport-https 
+apt-get install ca-certificates
+apt-get install software-properties-common
+apt-get install docker-ce
+apt-get install docker-ce-cli
+apt-get install containerd.io
+
+groupadd docker
+usermod -aG docker $USER
+newgrp docker
+
+systemctl enable docker
+chkconfig docker on
 
 # ------------------------------
 # Node
