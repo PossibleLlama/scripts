@@ -34,6 +34,10 @@ bash clear-docker-images -t "<none>"
 ## first-time-setup
 
 Script to setup a linux machine with various configs and aliases that I have found useful.
+This is expected to be ran as root, and will not work correctly unless it is.
+
+Designed to setup most common functionality on a linux (Ubuntu derived) machine, including
+GPG and SSH keys, and setting up git to use these.
 
 Additional work will need to be done within the `~/.bash_aliases` file for scripts such as `morning` and `night`.
 
