@@ -47,6 +47,10 @@ create_file_if_none_exist() {
     fi
 }
 
+# ------------------------------
+# Aliases
+echo "Starting to create aliases"
+
 create_file_if_none_exist $ALIASES_FILE
 create_file_if_none_exist $SECRETS_FILE
 
@@ -78,6 +82,8 @@ create_function "night" "shutdown now"
 source $ALIASES_FILE
 
 # ------------------------------
+# Key signing
+echo "Starting to generate GPG key"
 
 GPG_FILE="/tmp/gpg-key-gen"
 
@@ -100,6 +106,8 @@ gpg --batch --generate-key $GPG_FILE
 rm $GPG_FILE
 
 # ------------------------------
+# Git
+echo "Starting to configure git"
 
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL
