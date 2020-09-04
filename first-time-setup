@@ -96,6 +96,12 @@ source $ALIASES_FILE
 
 # ------------------------------
 # Key signing
+echo "Starting to generate SSH key"
+
+ssh-keygen -f "$HOME/.ssh/id_ecdsa" -t ecdsa -b 521 <<< "\n"
+ssh-keygen -f "$HOME/.ssh/id_rsa" -t rsa -b 4096 <<< "\n"
+ssh-add -l
+
 echo "Starting to generate GPG key"
 
 GPG_FILE="/tmp/gpg-key-gen"
