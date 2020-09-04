@@ -136,6 +136,11 @@ git config --global color.ui auto
 gpg --armor --export $EMAIL | xclip -sel clip
 xdg-open https://github.com/settings/gpg/new
 
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip
+xdg-open https://github.com/settings/ssh/new
+
+echo "" | xclip -sel clip
+
 # ------------------------------
 # Node
 echo "Starting to configure node"
