@@ -48,6 +48,12 @@ create_file_if_none_exist() {
 }
 
 # ------------------------------
+# Installations
+
+apt-get install gnupg
+apt-get install xclip
+
+# ------------------------------
 # Aliases
 echo "Starting to create aliases"
 
@@ -87,8 +93,6 @@ echo "Starting to generate GPG key"
 
 GPG_FILE="/tmp/gpg-key-gen"
 
-apt-get install gnupg
-
 cat >$GPG_FILE <<EOF
     %echo "Generating key"
     Key-Type: default
@@ -115,3 +119,6 @@ git config --global user.email $EMAIL
 git config --global commit.gpgsign true
 git config --global core.editor "vim"
 git config --global color.ui auto
+
+gpg --armor --export $EMAIL | xclip -sel clip
+xdg-open https://github.com/settings/gpg/new
