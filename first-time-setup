@@ -52,6 +52,8 @@ create_file_if_none_exist() {
 
 apt-get install gnupg
 apt-get install xclip
+apt-get install npm
+apt-get install build-essential
 
 # ------------------------------
 # Aliases
@@ -61,6 +63,10 @@ create_file_if_none_exist $ALIASES_FILE
 create_file_if_none_exist $SECRETS_FILE
 
 write_to_file $ALIASES_FILE "export PATH=\"\$PATH:$(pwd)\""
+line_break $ALIASES_FILE
+write_to_file $ALIASES_FILE "export NVM_DIR=\"$HOME/.nvm\""
+line_break $ALIASES_FILE
+write_to_file $ALIASES_FILE "[ -s \"$HOME/.nvm/nvm.sh\" ] && \. \"$HOME/.nvm/nvm.sh\""
 line_break $ALIASES_FILE
 
 add_alias "ls" "ls -l"
@@ -81,6 +87,7 @@ add_alias "ss"          "ss -tulpn"
 add_alias "gpg-list"    "gpg --list-secret-keys --keyid-format LONG"
 
 write_to_file $ALIASES_FILE "source ${SECRETS_FILE}"
+line_break $ALIASES_FILE
 
 create_function "morning"
 create_function "night" "shutdown now"
@@ -122,3 +129,19 @@ git config --global color.ui auto
 
 gpg --armor --export $EMAIL | xclip -sel clip
 xdg-open https://github.com/settings/gpg/new
+
+# ------------------------------
+# Node
+echo "Starting to configure node"
+
+NVM_VERSION="0.35.3"
+
+curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_VERSION/install.sh" | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+nvm install --lts
+npm i -g npm
+
+echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
