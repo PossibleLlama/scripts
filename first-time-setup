@@ -79,8 +79,31 @@ source $ALIASES_FILE
 
 # ------------------------------
 
+GPG_FILE="/tmp/gpg-key-gen"
+
+apt-get install gnupg
+
+cat >$GPG_FILE <<EOF
+    %echo "Generating key"
+    Key-Type: default
+    Subkey-Type: default
+    Key-Length: 4096
+    Name-Real: $USERNAME
+    Name-Email: $EMAIL
+    Expire-Date: 2y
+    %no-protection
+    %commit
+    %echo "Finished generating key"
+EOF
+
+gpg --batch --generate-key $GPG_FILE
+rm $GPG_FILE
+
+# ------------------------------
+
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL
 
+git config --global commit.gpgsign true
 git config --global core.editor "vim"
 git config --global color.ui auto
