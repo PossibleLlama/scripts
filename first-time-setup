@@ -56,16 +56,19 @@ line_break $ALIASES_FILE
 add_alias "ls" "ls -l"
 line_break $ALIASES_FILE
 
-add_alias "gita"    "git add"
-add_alias "gitaa"   "git add --all"
-add_alias "gitc"    "git commit -m "
-add_alias "gitpl"   "git pull --prune"
-add_alias "gitps"   "git push"
-add_alias "gits"    "git status"
-add_alias "gitl"    "git log --oneline"
+add_alias "gita"        "git add"
+add_alias "gitaa"       "git add --all"
+add_alias "gitc"        "git commit -m "
+add_alias "gitpl"       "git pull --prune"
+add_alias "gitps"       "git push"
+add_alias "gits"        "git status"
+add_alias "gitl"        "git log --oneline"
 line_break $ALIASES_FILE
 
-add_alias "python"  "python3"
+add_alias "python"      "python3"
+
+add_alias "ss"          "ss -tulpn"
+add_alias "gpg-list"    "gpg --list-secret-keys --keyid-format LONG"
 
 write_to_file $ALIASES_FILE "source ${SECRETS_FILE}"
 
