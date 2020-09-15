@@ -56,6 +56,7 @@ apt-get install gnupg-agent
 apt-get install xclip
 apt-get install npm
 apt-get install build-essential
+apt-get install jq
 
 # ------------------------------
 # Aliases
