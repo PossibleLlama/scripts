@@ -82,6 +82,7 @@ add_alias "gitpl"       "git pull --prune"
 add_alias "gitps"       "git push"
 add_alias "gits"        "git status"
 add_alias "gitl"        "git log --oneline"
+add_alias "gitlg"       "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches --remotes --tags"
 line_break $ALIASES_FILE
 
 add_alias "python"      "python3"
