@@ -59,6 +59,12 @@ apt-get install build-essential
 apt-get install jq
 
 # ------------------------------
+# Misc
+echo "Creating symlink to project directory"
+mkdir ~/Documents/projects
+ln -s /projects ~/Documents/projects
+
+# ------------------------------
 # Aliases
 echo "Starting to create aliases"
 
@@ -185,3 +191,4 @@ nvm install --lts
 npm i -g npm
 
 echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+
