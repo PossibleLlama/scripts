@@ -89,6 +89,7 @@ add_alias "python"      "python3"
 
 add_alias "ss"          "ss -tulpn"
 add_alias "gpg-list"    "gpg --list-secret-keys --keyid-format LONG"
+add_alias "hello"       "ping 8.8.8.8" # Ping google
 
 write_to_file $ALIASES_FILE "source ${SECRETS_FILE}"
 line_break $ALIASES_FILE
