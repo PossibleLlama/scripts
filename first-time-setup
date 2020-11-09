@@ -50,20 +50,20 @@ create_file_if_none_exist() {
 # ------------------------------
 # Installations
 
-apt-get install curl
-apt-get install gnupg
-apt-get install gnupg-agent
-apt-get install xclip
-apt-get install npm
-apt-get install build-essential
-apt-get install jq
-apt-get install awscli
+sudo apt-get install curl
+sudo apt-get install gnupg
+sudo apt-get install gnupg-agent
+sudo apt-get install xclip
+sudo apt-get install npm
+sudo apt-get install build-essential
+sudo apt-get install jq
+sudo apt-get install awscli
 
 # ------------------------------
 # Misc
 echo "Creating symlink to project directory"
 mkdir ~/Documents/projects
-ln -s /projects ~/Documents/projects
+sudo ln -s /projects ~/Documents/projects
 
 # ------------------------------
 # Aliases
@@ -157,25 +157,25 @@ echo "" | xclip -sel clip
 # Docker
 echo "Configuring Docker"
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-add-apt-repository \
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
-apt-get install apt-transport-https 
-apt-get install ca-certificates
-apt-get install software-properties-common
-apt-get install docker-ce
-apt-get install docker-ce-cli
+sudo apt-get install apt-transport-https 
+sudo apt-get install ca-certificates
+sudo apt-get install software-properties-common
+sudo apt-get install docker-ce
+sudo apt-get install docker-ce-cli
 apt-get install containerd.io
 
-groupadd docker
-usermod -aG docker $USER
-newgrp docker
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo newgrp docker
 
-systemctl enable docker
-chkconfig docker on
+sudo systemctl enable docker
+sudo chkconfig docker on
 
 # ------------------------------
 # Node
@@ -191,5 +191,5 @@ export NVM_DIR="$HOME/.nvm"
 nvm install --lts
 npm i -g npm
 
-echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
