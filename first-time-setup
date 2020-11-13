@@ -1,4 +1,5 @@
 #! /bin/bash
+# curl -o first-time-setup https://raw.githubusercontent.com/PossibleLlama/scripts/main/first-time-setup
 
 USERNAME=$1
 EMAIL=$2
