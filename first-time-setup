@@ -65,6 +65,8 @@ sudo apt-get install awscli
 echo "Creating symlink to project directory"
 mkdir ~/Documents/projects
 sudo ln -s /projects ~/Documents/projects
+mkdir ~/Documents/software
+mkdir ~/Documents/software/exec
 
 # ------------------------------
 # Aliases
@@ -74,6 +76,7 @@ create_file_if_none_exist $ALIASES_FILE
 create_file_if_none_exist $SECRETS_FILE
 
 write_to_file $ALIASES_FILE "export PATH=\"\$PATH:$(pwd)\""
+write_to_file $ALIASES_FILE "export PATH=\"\$PATH:$HOME/Documents/software/exec"
 line_break $ALIASES_FILE
 write_to_file $ALIASES_FILE "export NVM_DIR=\"$HOME/.nvm\""
 line_break $ALIASES_FILE
