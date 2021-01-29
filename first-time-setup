@@ -111,6 +111,7 @@ line_break $ALIASES_FILE
 
 create_function "morning"
 create_function "night" "shutdown now"
+create_function "monthly" "sudo apt update && sudo apt autoremove"
 
 source $ALIASES_FILE
 
