@@ -54,9 +54,13 @@ create_file_if_none_exist() {
 sudo apt-get install curl
 sudo apt-get install gnupg
 sudo apt-get install gnupg-agent
+sudo apt-get install libgconf-2-4
+sudo apt-get install mime-support
+sudo apt-get install dpkg-dev
+sudo apt-get install debhelper
+sudo apt-get install build-essential
 sudo apt-get install xclip
 sudo apt-get install npm
-sudo apt-get install build-essential
 sudo apt-get install jq
 sudo apt-get install awscli
 
@@ -189,3 +193,8 @@ npm i -g npm
 
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+# curl -L -o ~/Downloads/dbeaver https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
+# sudo dpkg -i ~/Downloads/dbeaver
+# https://dbeaver.io/download/
+# https://www.mongodb.com/try/download/compass
+# https://www.postman.com/downloads/
