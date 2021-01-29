@@ -148,6 +148,7 @@ git config --global user.email $EMAIL
 git config --global commit.gpgsign true
 git config --global core.editor "vim"
 git config --global color.ui auto
+git config --global remote.origin.prune true
 
 gpg --armor --export $EMAIL | xclip -sel clip
 xdg-open https://github.com/settings/gpg/new
@@ -170,16 +171,7 @@ sudo add-apt-repository \
 sudo apt-get install apt-transport-https 
 sudo apt-get install ca-certificates
 sudo apt-get install software-properties-common
-sudo apt-get install docker-ce
-sudo apt-get install docker-ce-cli
-apt-get install containerd.io
-
-sudo groupadd docker
-sudo usermod -aG docker $USER
-sudo newgrp docker
-
-sudo systemctl enable docker
-sudo chkconfig docker on
+sudo apt-get install docker.io
 
 # ------------------------------
 # Node
