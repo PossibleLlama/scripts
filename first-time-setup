@@ -106,6 +106,10 @@ add_alias "ss"          "ss -tulpn"
 add_alias "gpg-list"    "gpg --list-secret-keys --keyid-format LONG"
 add_alias "hello"       "ping 8.8.8.8" # Ping google
 
+line_break $ALIASES_FILE
+write_to_file $ALIASES_FILE "#alias postman=\"nohup $HOME/Documents/software/Postman/Postman &>/dev/null &\""
+line_break $ALIASES_FILE
+
 create_function "morning"
 create_function "night" "shutdown now"
 create_function "monthly" "sudo apt update && sudo apt autoremove"
