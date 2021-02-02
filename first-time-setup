@@ -105,8 +105,13 @@ add_alias "python"      "python3"
 add_alias "ss"          "ss -tulpn"
 add_alias "gpg-list"    "gpg --list-secret-keys --keyid-format LONG"
 add_alias "hello"       "ping 8.8.8.8" # Ping google
-
 line_break $ALIASES_FILE
+
+write_to_file $ALIASES_FILE "DB_NAME=\"local-testing-db\""
+add_alias "db-start"    "docker run -d -p 27017:27017 --name=\"$DB_NAME\" mongo"
+add_alias "db-stop"     "docker stop $DB_NAME && docker rm $DB_NAME"
+line_break $ALIASES_FILE
+
 write_to_file $ALIASES_FILE "#alias postman=\"nohup $HOME/Documents/software/Postman/Postman &>/dev/null &\""
 line_break $ALIASES_FILE
 
